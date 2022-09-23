@@ -1,0 +1,24 @@
+plugins {
+    id 'java-base'
+}
+
+wrapper {
+    gradleVersion = gradlewVersion
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    group = 'com.mjc.school'
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
