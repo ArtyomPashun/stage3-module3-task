@@ -8,18 +8,23 @@ import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 import com.mjc.school.service.exceptions.NotFoundException;
 import com.mjc.school.service.exceptions.ServiceErrorCode;
-import com.mjc.school.service.mappers.AuthorMapper;
-import lombok.RequiredArgsConstructor;
+import com.mjc.school.service.mapper.AuthorMapper;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoResponse, Long> {
 
     private final BaseRepository<AuthorModel, Long> authorRepository;
-    private final AuthorMapper authorMapper;
+    private final AuthorMapper authorMapper = Mappers.getMapper(AuthorMapper.class);
+
+    @Autowired
+    public AuthorService(BaseRepository<AuthorModel, Long> repository) {
+        this.authorRepository = repository;
+    }
 
     @Override
     public List<AuthorDtoResponse> readAll() {

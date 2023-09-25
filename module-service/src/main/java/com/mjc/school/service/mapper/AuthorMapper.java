@@ -1,4 +1,4 @@
-package com.mjc.school.service.mappers;
+package com.mjc.school.service.mapper;
 
 import com.mjc.school.repository.model.impl.AuthorModel;
 import com.mjc.school.service.dto.AuthorDtoRequest;

@@ -1,24 +1,32 @@
 package com.mjc.school.service.impl;
 
+import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.impl.NewsRepository;
+import com.mjc.school.repository.model.impl.NewsModel;
 import com.mjc.school.service.BaseService;
 import com.mjc.school.service.annotations.ToValidate;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.exceptions.NotFoundException;
 import com.mjc.school.service.exceptions.ServiceErrorCode;
-import com.mjc.school.service.mappers.NewsMapper;
+import com.mjc.school.service.mapper.NewsMapper;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
-    private final NewsRepository newsRepository;
+
+    private final BaseRepository<NewsModel, Long> newsRepository;
     private final NewsMapper newsMapper = Mappers.getMapper(NewsMapper.class);
+
+    @Autowired
+    public NewsService(BaseRepository<NewsModel, Long> repository) {
+        this.newsRepository = repository;
+    }
 
     @Override
     public List<NewsDtoResponse> readAll() {
