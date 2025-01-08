@@ -3,8 +3,10 @@ package com.mjc.school.controller;
 import com.mjc.school.controller.annotations.CommandHandler;
 import com.mjc.school.controller.impl.AuthorController;
 import com.mjc.school.controller.impl.NewsController;
+import com.mjc.school.controller.impl.TagController;
 import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.NewsDtoRequest;
+import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.exceptions.ServiceErrorCode;
 import com.mjc.school.service.exceptions.ValidationException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.Scanner;
 public class ControllerHandler {
     private final AuthorController authorController;
     private final NewsController newsController;
+    private final TagController tagController;
 
     @CommandHandler(command = 1)
     public void getAllNews() {
@@ -87,6 +90,41 @@ public class ControllerHandler {
         System.out.println(authorController.deleteById(id));
     }
 
+    @CommandHandler(command = 11)
+    public void getAllTags() {
+        System.out.println(Operations.GET_ALL_TAGS.getOperation());
+        tagController.readAll().forEach(System.out::println);
+    }
+
+    @CommandHandler(command = 12)
+    public void readTagsById() {
+        System.out.println(Operations.GET_TAG_BY_ID.getOperation());
+        Long id = readNumber("Tag Id");
+        System.out.println(tagController.readById(id));
+    }
+
+    @CommandHandler(command = 13)
+    public void createTags() {
+        System.out.println(Operations.CREATE_TAG.getOperation());
+        TagDtoRequest dto = readTagValues(null);
+        System.out.println(tagController.create(dto));
+    }
+
+    @CommandHandler(command = 14)
+    public void updateTags() {
+        System.out.println(Operations.UPDATE_TAG.getOperation());
+        Long id = readNumber("Tag id");
+        TagDtoRequest dto = readTagValues(id);
+        System.out.println(tagController.update(dto));
+    }
+
+    @CommandHandler(command = 15)
+    public void deleteTags() {
+        System.out.println(Operations.DELETE_TAG_BY_ID.getOperation());
+        Long id = readNumber("Tag id");
+        System.out.println(tagController.deleteById(id));
+    }
+
     private Long readNumber(String type) {
         System.out.println("Enter " + type + ":");
         try (Scanner sc = new Scanner(System.in)) {
@@ -102,6 +140,14 @@ public class ControllerHandler {
         String name = sc.nextLine();
         sc.close();
         return new AuthorDtoRequest(id, name);
+    }
+
+    private TagDtoRequest readTagValues(Long id) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter tag name: ");
+        String name = sc.nextLine();
+        sc.close();
+        return new TagDtoRequest(id, name);
     }
 
     private NewsDtoRequest readNewsValues(Long id) {

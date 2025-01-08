@@ -14,5 +14,4 @@ public class NewsDtoRequest {
     private String title;
     private String content;
     private long authorId;
-    private List<Long> tags;
 }
