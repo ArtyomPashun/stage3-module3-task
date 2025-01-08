@@ -23,6 +23,8 @@ subprojects {
 
         implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 
+        implementation 'javax.validation:validation-api:2.0.1.Final'
+
         testImplementation "org.springframework:spring-test:$springVersion"
         testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
         testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
