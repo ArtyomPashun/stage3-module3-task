@@ -12,8 +12,6 @@ public interface TagMapper {
 
     TagModel tagDtoRequestToTag(TagDtoRequest tagDtoRequest);
 
-    List<TagModel> listLongToListTag(List<Long> tags);
-
     List<TagDtoResponse> listTagToListTagDtoResponse(List<TagModel> tags);
 
     TagDtoResponse tagToTagDtoResponse(TagModel tagModel);

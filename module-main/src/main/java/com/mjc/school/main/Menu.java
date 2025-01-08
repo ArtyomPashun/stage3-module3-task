@@ -26,7 +26,7 @@ public class Menu {
                 try {
                     int command = sc.nextInt();
                     if (command == 0) System.exit(0);
-                    if (command > 0 && command <= 10){
+                    if (command > 0 && command <= 15){
                         operationHandler.executeOperation(command);
                     }
                 } catch (InputMismatchException e){
