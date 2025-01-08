@@ -2,11 +2,10 @@ package com.mjc.school.repository.impl;
 
 import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.model.impl.AuthorModel;
-import com.mjc.school.repository.utils.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,56 +13,42 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthorsRepository implements BaseRepository<AuthorModel, Long> {
 
-    private final DataSource dataSource;
+    private final EntityManager entityManager;
 
     @Override
     public List<AuthorModel> readAll() {
-        return dataSource.getAuthors();
+        return entityManager.createQuery("select am from AuthorModel am", AuthorModel.class).getResultList();
     }
 
     @Override
     public Optional<AuthorModel> readById(Long id) {
-        return dataSource.getAuthors().stream()
-                .filter(author -> author.getId().equals(id))
-                .findFirst();
+        return Optional.ofNullable(entityManager.find(AuthorModel.class, id));
     }
 
     @Override
     public AuthorModel create(AuthorModel entity) {
-        List<AuthorModel> authorList = dataSource.getAuthors();
-        AuthorModel author = AuthorModel.builder()
-                .id(dataSource.getNextAuthorId())
-                .name(entity.getName())
-                .createDate(LocalDateTime.now())
-                .lastUpdateDate(LocalDateTime.now())
-                .build();
-        authorList.add(author);
-
-        return author;
+        entityManager.persist(entity);
+        return entity;
     }
 
     @Override
     public AuthorModel update(AuthorModel entity) {
-        AuthorModel authorModel = readById(entity.getId()).get();
-        authorModel.setName(entity.getName());
-        authorModel.setLastUpdateDate(LocalDateTime.now());
-
-        return authorModel;
+        return entityManager.merge(entity);
     }
 
     @Override
     public boolean deleteById(Long id) {
         Optional<AuthorModel> optionalAuthorModel = readById(id);
         if (optionalAuthorModel.isPresent()) {
-            List<AuthorModel> authorsList = dataSource.getAuthors();
-            return authorsList.remove(optionalAuthorModel.get());
+            entityManager.remove(optionalAuthorModel);
+            return true;
         }
         return false;
     }
 
     @Override
     public boolean existById(Long id) {
-        return dataSource.getAuthors().stream()
-                .anyMatch(author -> author.getId().equals(id));
+        AuthorModel authorModel = entityManager.find(AuthorModel.class, id);
+        return authorModel != null;
     }
 }
