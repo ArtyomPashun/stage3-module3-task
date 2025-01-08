@@ -8,7 +8,11 @@ public enum ServiceErrorCode {
     INCORRECT_NEWS_CONTENT("04", "Content can not be less than 5 characters and more than 255. Your content length is: %d"),
     INCORRECT_AUTHOR_NAME("05", "Author name can not be less than 3 characters and more than 15. Your name length is: %d"),
     NULL_AUTHOR_ID("06", "Author id can`t be null"),
-    CHECK_SHOULD_BE_NUMBER("07", "Input isn`t a number");
+    CHECK_SHOULD_BE_NUMBER("07", "Input isn`t a number"),
+    INCORRECT_TAG_NAME("08", "Tag name can not be less than 3 characters and more than 15. Your tag name length is: %d"),
+    NULL_TAG_ID("09", "Tag id can`t be null"),
+    TAG_ID_NOT_FOUND("10", "Tag with id: %d isn`t exist");
+
 
     private final String errorMessage;
 
