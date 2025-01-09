@@ -1,6 +1,5 @@
 plugins {
     id 'java-base'
-    id 'org.springframework.boot' version '2.7.14'
 }
 
 wrapper {
@@ -21,18 +20,16 @@ subprojects {
 
     dependencies {
 
-        implementation 'javax.xml.bind:jaxb-api:2.3.1'
-
-        implementation 'mysql:mysql-connector-java:8.0.30'
+        implementation "javax.xml.bind:jaxb-api:$javaxXmlBindVersion"
 
         implementation "org.springframework:spring-context:$springVersion"
 
-        implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
-
         implementation 'javax.validation:validation-api:2.0.1.Final'
 
+        implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
         testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
-        testImplementation 'org.mockito:mockito-core'
+        testImplementation 'org.mockito:mockito-core:3.9.0'
+        implementation 'org.mockito:mockito-junit-jupiter:3.8.0'
 
         testImplementation "org.springframework:spring-test:$springVersion"
         testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
@@ -42,11 +39,22 @@ subprojects {
         annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
         implementation "org.mapstruct:mapstruct:$mapstructVersion"
 
-        compileOnly 'org.projectlombok:lombok:1.18.30'
-        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-        testCompileOnly 'org.projectlombok:lombok:1.18.30'
-        testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+        testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        implementation "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
+        implementation "org.aspectj:aspectjweaver:$aspectjVersion"
+        implementation "org.projectlombok:lombok:$lombokVersion"
+        implementation "org.postgresql:postgresql:$postgresVersion"
+        implementation "org.testcontainers:postgresql:$testContainerVersion"
+
+        testImplementation "org.assertj:assertj-core:$assertjVersion"
+        testImplementation "com.h2database:h2:$h2Version"
+
+
 
     }
     test {

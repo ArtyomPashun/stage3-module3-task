@@ -1,6 +1,5 @@
 dependencies {
     implementation project(':module-repository')
-    implementation 'org.aspectj:aspectjweaver:1.9.19'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.mockito:mockito-core'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 }
