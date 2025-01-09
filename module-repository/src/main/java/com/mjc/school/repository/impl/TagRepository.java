@@ -3,9 +3,11 @@ package com.mjc.school.repository.impl;
 import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.model.impl.TagModel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TagRepository implements BaseRepository<TagModel, Long> {
 
+    @PersistenceUnit
+    @Autowired
     private final EntityManager entityManager;
 
     @Override
